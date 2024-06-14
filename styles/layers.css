@@ -1,0 +1,40 @@
+/* contains layer tools, title, and layer-display */
+#layer-tools-container {
+    margin-top: 1.25rem;
+}
+
+#layer-tools-container p {
+    margin-bottom: 0.5rem;
+}
+
+/* contains the layer displays themselves */
+#layer-list {
+    display: flex;
+    flex-direction: column;
+    background-color: silver;
+    height: 250px;
+    overflow-y: scroll;
+}
+
+#layer-list .selected {
+    background-color:steelblue;
+}
+
+/* display for an individual layer */
+.layer-display {
+    width: auto;
+    display: flex;
+    padding: 10px;
+    background-color: gray;
+    margin-bottom: 5px;
+}
+
+.layer-display :first-child {
+    margin-inline: 5px;
+    width: 5rem;
+}
+
+/* layer tools outside of individual layers (add, remove) */
+.layer-tools {
+    display: flex;
+}

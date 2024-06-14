@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jspdn</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/toolbar.css">
+    <link rel="stylesheet" href="styles/layers.css">
+
+    <script src="scripts/jspdn.js" type="module"></script> 
+</head>
+<body>
+    <div class="ribbon">
+        <p class="version">jspdn v0.1</p>
+        <button id="undo">undo (z)</button>
+        <button id="redo">redo (x)</button>
+    </div>
+
+    <div class="container">
+        <div class="left">  
+            <p>toolbar</p>  
+            <div id="toolbar"> 
+            </div>
+        </div>
+
+        <canvas id="canvas" width="800" height="600"></canvas>  
+
+        <div class="right">
+            <label for="primary color">color: </label>
+            <input type="color" id="primaryColor" name="primaryColor">
+            <div id="layer-tools-container">
+                <p>layers</p>
+                <div id="layer-list"></div>
+                <div class="layer-tools">
+                    <button id="add-layer-button">+</button>
+                    <button id="remove-layer-button">-</button>
+                    <!-- <button id="config-layer-button">c</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
