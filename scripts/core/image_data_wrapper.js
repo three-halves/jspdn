@@ -24,12 +24,14 @@ export class ImageDataWrapper {
         this.pxd[2] = color.b;
         this.pxd[3] = color.a;
         // console.log(this.imgData.data);
-        var d = {x: x, y: y, old: {}, new: {}};
-        var old = this.getPixel(x, y);
-        d.old = {r: old.r, g: old.g, b: old.b, a: old.a};
-        d.new = {r: color.r, g: color.g, b: color.b, a: color.a};
-
-        if (keepHistory) this.state.history.add(d);
+        if (keepHistory) {
+            var d = {x: x, y: y, old: {}, new: {}};
+            var old = this.getPixel(x, y);
+            d.old = {r: old.r, g: old.g, b: old.b, a: old.a};
+            d.new = {r: color.r, g: color.g, b: color.b, a: color.a};
+    
+            this.state.history.add(d);
+        }
 
         var p = (x + y * this.width - 1) * 4;
         this.imgData.data[p] = color.r;
@@ -55,26 +57,26 @@ export class ImageDataWrapper {
     }
 
     // bresenham
-    setLine(x0, y0, x1, y1, color) {
+    setLine(x0, y0, x1, y1, color, keepHistory = true) {
         if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
             if (x0 > x1) {
-                this.setLineLow(x1, y1, x0, y0, color);
+                this.setLineLow(x1, y1, x0, y0, color, keepHistory);
             }
             else {
-                this.setLineLow(x0, y0, x1, y1, color);
+                this.setLineLow(x0, y0, x1, y1, color, keepHistory);
             }
         }
         else {
             if (y0 > y1) {
-                this.setLineHigh(x1, y1, x0, y0, color);
+                this.setLineHigh(x1, y1, x0, y0, color, keepHistory);
             }
             else {
-                this.setLineHigh(x0, y0, x1, y1, color);
+                this.setLineHigh(x0, y0, x1, y1, color, keepHistory);
             }
         }
     }
 
-    setLineLow(x0, y0, x1, y1, color){
+    setLineLow(x0, y0, x1, y1, color, keepHistory = true){
         var dx = x1 - x0;
         var dy = y1 - y0;
         var yi = 1;
@@ -87,7 +89,7 @@ export class ImageDataWrapper {
         var y = y0;
 
         for (var x = x0; x < x1; x++) {
-            this.setPixel(x, y, color);
+            this.setPixel(x, y, color, keepHistory);
             if (D > 0) {
                 y += yi;
                 D += 2 * (dy - dx);
@@ -98,7 +100,7 @@ export class ImageDataWrapper {
         }
     }
 
-    setLineHigh(x0, y0, x1, y1, color){
+    setLineHigh(x0, y0, x1, y1, color, keepHistory = true){
         var dx = x1 - x0;
         var dy = y1 - y0;
         var xi = 1;
@@ -111,7 +113,7 @@ export class ImageDataWrapper {
         var x = x0;
 
         for (var y = y0; y < y1; y++) {
-            this.setPixel(x, y, color);
+            this.setPixel(x, y, color, keepHistory);
             if (D > 0) {
                 x += xi;
                 D += 2 * (dx - dy);

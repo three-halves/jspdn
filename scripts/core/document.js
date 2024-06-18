@@ -18,7 +18,11 @@ export class JspdnDocument {
 
     getCompositeColor(x, y) {
         var comColor = {r: 0, g: 0, b: 0, a: 0};
-        this.layerManager.layers.forEach((layer) => {
+        var layers = [];
+        layers.push(...this.layerManager.layers);
+        if (this.layerManager.scratchLayer !== undefined) layers.push(this.layerManager.scratchLayer);
+
+        layers.forEach((layer) => {
             var curColor = layer.idw.getPixel(x, y);
 
             if (curColor.a !== 0) comColor = over(curColor, comColor);

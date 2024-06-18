@@ -5,6 +5,8 @@ export class LayerManager {
     constructor(state) {
         this.state = state;
         this.layers = [new Layer(this.state, 'base')];
+        // used by tools
+        this.scratchLayer = undefined;
 
         this.currentLayer = this.layers[0];
         this.display = new LayerDisplay(this);
@@ -37,6 +39,17 @@ export class LayerManager {
         this.layerCount--;
         this.selectLayer(this.layers[Math.min(i, this.layers.length - 1)]);
         this.display.refresh();
+    }
+
+    getScratchLayer() {
+        if (this.scratchLayer === undefined) this.scratchLayer = new Layer(this.state, 'tool preview', true);
+
+        return this.scratchLayer;
+    }
+
+    applyScratchLayer() {
+        this.currentLayer.merge(this.scratchLayer);
+        this.scratchLayer = undefined;
     }
 
     selectLayer(layer) {

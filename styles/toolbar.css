@@ -8,5 +8,6 @@
 }
 
 #toolbar .selected {
-    outline: 2px solid gray;
+    /* outline: 2px solid gray; */
+    background-color:lightblue;
 }
