@@ -49,7 +49,7 @@ export class JspdnDocument {
         }
         else {
             pxs.forEach((px) => {
-                this.drawPx(px);
+                this.drawPx(px.x, px.y);
             });
         }
 

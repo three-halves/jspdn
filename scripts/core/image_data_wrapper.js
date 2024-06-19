@@ -96,7 +96,7 @@ export class ImageDataWrapper {
 
         for (var x = x0; x < x1; x++) {
             this.setPixel(x, y, color, keepHistory);
-            pxs.push({x,y});
+            pxs.push({x: x, y: y});
             if (D > 0) {
                 y += yi;
                 D += 2 * (dy - dx);
@@ -123,7 +123,7 @@ export class ImageDataWrapper {
 
         for (var y = y0; y < y1; y++) {
             this.setPixel(x, y, color, keepHistory);
-            pxs.push({x,y});
+            pxs.push({x: x, y: y});
             if (D > 0) {
                 x += xi;
                 D += 2 * (dx - dy);
