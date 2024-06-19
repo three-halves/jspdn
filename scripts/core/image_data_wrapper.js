@@ -44,7 +44,9 @@ export class ImageDataWrapper {
         this.imgData.data[p + 2] = color.b;
         this.imgData.data[p + 3] = color.a;
 
-        this.ctx.putImageData(this.px, x, y);
+        // preview drawing before canvas is redrawn
+        // this.ctx.putImageData(this.px, x, y);
+        this.ctx.fillRect(x, y, 1, 1);
         return true;
     }
 
