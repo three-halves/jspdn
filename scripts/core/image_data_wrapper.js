@@ -19,10 +19,10 @@ export class ImageDataWrapper {
         var p = x;
         if (y !== undefined) {
             y = Math.floor(y);
-            p = (x + y * this.width - 1) * 4;
+            p = (x + y * this.width ) * 4;
         }
 
-        if (x < 0 || y < 0 || x > this.width || y > this.height) return false;
+        if (x < 0 || y < 0 || x >= this.width || y > this.height) return false;
 
         this.pxd[0] = color.r;
         this.pxd[1] = color.g;
@@ -38,7 +38,7 @@ export class ImageDataWrapper {
             this.state.history.add(d);
         }
 
-        var p = (x + y * this.width - 1) * 4;
+        var p = (x + y * this.width) * 4;
         this.imgData.data[p] = color.r;
         this.imgData.data[p + 1] = color.g;
         this.imgData.data[p + 2] = color.b;
@@ -55,7 +55,7 @@ export class ImageDataWrapper {
         var p = x;
         if (y !== undefined) {
             y = Math.floor(y);
-            p = (x + y * this.width - 1) * 4;
+            p = (x + y * this.width) * 4;
         }
         // console.log('getting', {r: this.imgData.data[p], g: this.imgData.data[p + 1], b: this.imgData.data[p + 2], a: this.imgData.data[p + 3]});
         return {r: this.imgData.data[p], g: this.imgData.data[p + 1], b: this.imgData.data[p + 2], a: this.imgData.data[p + 3]};

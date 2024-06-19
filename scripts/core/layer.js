@@ -22,7 +22,7 @@ export class Layer {
                 if (otherColor.a === 0) continue;
 
                 var c = interpColor(this.idw.getPixel(x, y), otherColor);
-                var p = (x + y * this.idw.width - 1) * 4;
+                var p = (x + y * this.idw.width) * 4;
                 this.idw.imgData.data[p] = c.r;
                 this.idw.imgData.data[p + 1] = c.g;
                 this.idw.imgData.data[p + 2] = c.b;

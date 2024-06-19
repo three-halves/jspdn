@@ -21,7 +21,7 @@ export class JspdnDocument {
     getCompositeColor(x, y = undefined) {
         var p = x;
         if (y !== undefined) {
-            p = (x + y * this.width - 1) * 4; 
+            p = (x + y * this.width) * 4; 
         }
 
         var comColor = {r: 0, g: 0, b: 0, a: 0};
@@ -41,8 +41,8 @@ export class JspdnDocument {
     draw(pxs = []) {
         // draw full canvas if pixels not given
         if (pxs.length === 0) {
-            for (var x = 1; x < this.width; x++) {
-                for (var y = 1; y < this.height; y++) {
+            for (var x = 0; x < this.width; x++) {
+                for (var y = 0; y < this.height; y++) {
                     this.drawPx(x, y);
                 }
             }
@@ -53,13 +53,13 @@ export class JspdnDocument {
             });
         }
 
-        this.state.ctx.putImageData(this.finalImgData, 1, 0);
+        this.state.ctx.putImageData(this.finalImgData, 0, 0);
     }
 
     drawPx(x, y = undefined) {
         var p = x;
         if (y !== undefined) {
-            p = (x + y * this.width - 1) * 4; 
+            p = (x + y * this.width) * 4; 
         }
         var c = this.getCompositeColor(p);
         this.finalImgData.data[p] = c.r;
