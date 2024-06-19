@@ -24,11 +24,6 @@ export class ImageDataWrapper {
 
         if (x < 0 || y < 0 || x >= this.width || y > this.height) return false;
 
-        this.pxd[0] = color.r;
-        this.pxd[1] = color.g;
-        this.pxd[2] = color.b;
-        this.pxd[3] = color.a;
-        // console.log(this.imgData.data);
         if (keepHistory) {
             var d = {x: x, y: y, old: {}, new: {}};
             var old = this.getPixel(x, y);
@@ -45,7 +40,8 @@ export class ImageDataWrapper {
         this.imgData.data[p + 3] = color.a;
 
         // preview drawing before canvas is redrawn
-        // this.ctx.putImageData(this.px, x, y);
+        this.ctx.fillStyle = `rgba(${color.r} ${color.g} ${color.b})`;
+        // this.ctx.globalAlpha = color.a;
         this.ctx.fillRect(x, y, 1, 1);
         return true;
     }

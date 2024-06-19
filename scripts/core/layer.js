@@ -12,16 +12,16 @@ export class Layer {
         this.disabled = false;
         this.opacity = opacity;
 
-        this.merge = this.merge.bind(this);
+        this.merge = this.mergeWith.bind(this);
     }
 
-    merge(other) {
+    mergeWith(other) {
         for (var x = 1; x < this.idw.width; x++) {
             for (var y = 1; y < this.idw.height; y++) {
                 var otherColor = other.idw.getPixel(x, y);
                 if (otherColor.a === 0) continue;
 
-                var c = interpColor(this.idw.getPixel(x, y), otherColor);
+                var c = interpColor(otherColor, this.idw.getPixel(x, y));
                 var p = (x + y * this.idw.width) * 4;
                 this.idw.imgData.data[p] = c.r;
                 this.idw.imgData.data[p + 1] = c.g;
