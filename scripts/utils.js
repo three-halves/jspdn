@@ -7,7 +7,7 @@ export function hexToRgb(hex) {
   } : null;
 }
 
-export function over(ca, cb) {
+export function interpColor(ca, cb) {
   var newColor = {r: 0, g: 0, b: 0, a: 0};
 
   newColor.r = ca.r + cb.r * (1 - ca.a / 255);

@@ -14,9 +14,14 @@ export class ImageDataWrapper {
     }
 
     // returns true on success, false if fail
-    setPixel(x, y, color, keepHistory = true) {
+    setPixel(x, y = undefined, color, keepHistory = true) {
         x = Math.floor(x);
-        y = Math.floor(y);
+        var p = x;
+        if (y !== undefined) {
+            y = Math.floor(y);
+            p = (x + y * this.width - 1) * 4;
+        }
+
         if (x < 0 || y < 0 || x > this.width || y > this.height) return false;
 
         this.pxd[0] = color.r;
@@ -43,40 +48,41 @@ export class ImageDataWrapper {
         return true;
     }
 
-    // swap() {
-    //     // console.log('swap');
-    //     this.ctx.putImageData(this.imgData, 1, 0);
-    // }
-
-    getPixel(x, y) {
+    getPixel(x, y = undefined) {
         x = Math.floor(x);
-        y = Math.floor(y);
-        var p = (x + y * this.width - 1) * 4;
+        var p = x;
+        if (y !== undefined) {
+            y = Math.floor(y);
+            p = (x + y * this.width - 1) * 4;
+        }
         // console.log('getting', {r: this.imgData.data[p], g: this.imgData.data[p + 1], b: this.imgData.data[p + 2], a: this.imgData.data[p + 3]});
         return {r: this.imgData.data[p], g: this.imgData.data[p + 1], b: this.imgData.data[p + 2], a: this.imgData.data[p + 3]};
     }
 
     // bresenham
     setLine(x0, y0, x1, y1, color, keepHistory = true) {
+        var pxs = [] 
         if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
             if (x0 > x1) {
-                this.setLineLow(x1, y1, x0, y0, color, keepHistory);
+                pxs = this.setLineLow(x1, y1, x0, y0, color, keepHistory);
             }
             else {
-                this.setLineLow(x0, y0, x1, y1, color, keepHistory);
+                pxs = this.setLineLow(x0, y0, x1, y1, color, keepHistory);
             }
         }
         else {
             if (y0 > y1) {
-                this.setLineHigh(x1, y1, x0, y0, color, keepHistory);
+                pxs = this.setLineHigh(x1, y1, x0, y0, color, keepHistory);
             }
             else {
-                this.setLineHigh(x0, y0, x1, y1, color, keepHistory);
+                pxs = this.setLineHigh(x0, y0, x1, y1, color, keepHistory);
             }
         }
+        return pxs;
     }
 
     setLineLow(x0, y0, x1, y1, color, keepHistory = true){
+        var pxs = [];
         var dx = x1 - x0;
         var dy = y1 - y0;
         var yi = 1;
@@ -90,6 +96,7 @@ export class ImageDataWrapper {
 
         for (var x = x0; x < x1; x++) {
             this.setPixel(x, y, color, keepHistory);
+            pxs.push({x,y});
             if (D > 0) {
                 y += yi;
                 D += 2 * (dy - dx);
@@ -98,9 +105,11 @@ export class ImageDataWrapper {
                 D += 2 * dy;
             }
         }
+        return pxs;
     }
 
     setLineHigh(x0, y0, x1, y1, color, keepHistory = true){
+        var pxs = [];
         var dx = x1 - x0;
         var dy = y1 - y0;
         var xi = 1;
@@ -114,6 +123,7 @@ export class ImageDataWrapper {
 
         for (var y = y0; y < y1; y++) {
             this.setPixel(x, y, color, keepHistory);
+            pxs.push({x,y});
             if (D > 0) {
                 x += xi;
                 D += 2 * (dx - dy);
@@ -122,6 +132,7 @@ export class ImageDataWrapper {
                 D += 2 * dx;
             }
         }
+        return pxs;
     }
 
     revertDelta(delta) {
