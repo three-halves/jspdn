@@ -2,9 +2,11 @@
 class Tool {
     constructor() {
         this.name = "default tool name";
+        this.optionsElement = "";
     }
 
     select() {
+        document.getElementById("tool-options").innerHTML = '';
         this.initTool();
         console.log("selected " + this.name);
     }

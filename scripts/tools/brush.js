@@ -6,11 +6,29 @@ class Pencil extends Tool {
         this.name = "brush";
         this.point = undefined;
         this.lastPoint = undefined;
+        this.optionsElement = document.getElementById("tool-options");
+
+        this.changeWidth = this.changeWidth.bind(this);
+        this.width = 4;
     }
 
     initTool() {
         this.point = undefined;
         this.lastPoint = undefined;
+
+        // make options bar for tool
+        // TODO find better way to do this
+        var el = document.createElement('p');
+        el.innerHTML = 'width: ';
+        this.optionsElement.appendChild(el);
+        el = document.createElement('input');
+        el.type = 'range';
+        el.min = 1;
+        el.max = 25;
+        el.value = this.width;
+        el.classList.add('slider');
+        el.addEventListener('change', this.changeWidth);
+        this.optionsElement.appendChild(el);
     }
 
     handleMouseDown(event, state, x, y) {
@@ -37,13 +55,18 @@ class Pencil extends Tool {
         // place pixel
         if (this.lastPoint !== undefined) 
         {
-            for (var dx = 0; dx < 4; dx++) {
-                for (var dy = 0; dy < 4; dy++) {
+            for (var dx = 0; dx < this.width; dx++) {
+                for (var dy = 0; dy < this.width; dy++) {
                     state.currentLayer().idw.setLine(this.lastPoint.x + dx, this.lastPoint.y + dy, this.point.x + dx, this.point.y + dy, state.primaryColor);
                 }
             }
         }
         this.lastPoint = { x, y };
+    }
+
+    changeWidth(e) {
+        console.log("change width: " + e.target.value);
+        this.width = e.target.value;
     }
 }
 

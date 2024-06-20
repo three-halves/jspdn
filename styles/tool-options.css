@@ -1,0 +1,32 @@
+#tool-options {
+    /* min-height: 50px; */
+    background-color: lightgrey;
+    flex-basis: 100%;
+    margin-inline: 9rem;
+    margin-block: 0.5rem;
+    border-radius: 15px;
+    display: flex;
+    padding-inline: 0.3rem;
+    align-items: center;
+}
+
+#tool-options * {
+    margin-inline: 0.3rem;
+    margin-block: 1rem;
+}
+
+#tool-options .slider {
+    appearance: none;
+    background-color: grey;
+    height: 10px;
+    border-radius: 25px;
+}
+
+#tool-options .slider::-webkit-slider-thumb {
+    appearance: none;
+    background-color: steelblue;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    cursor: pointer;
+}
