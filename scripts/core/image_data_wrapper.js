@@ -10,11 +10,11 @@ export class ImageDataWrapper {
         this.pxd = this.px.data;
 
         this.getPixel = this.getPixel.bind(this);
-        this.setPixel = this.setPixel.bind(this);
+        this.setRect = this.setRect.bind(this);
     }
 
     // returns true on success, false if fail
-    setPixel(x, y = undefined, color, keepHistory = true) {
+    setRect(x, y = undefined, width = 1, height = 1, color, keepHistory = true) {
         x = Math.floor(x);
         var p = x;
         if (y !== undefined) {
@@ -24,25 +24,29 @@ export class ImageDataWrapper {
 
         if (x < 0 || y < 0 || x >= this.width || y > this.height) return false;
 
-        if (keepHistory) {
-            var d = {x: x, y: y, old: {}, new: {}};
-            var old = this.getPixel(x, y);
-            d.old = {r: old.r, g: old.g, b: old.b, a: old.a};
-            d.new = {r: color.r, g: color.g, b: color.b, a: color.a};
-    
-            this.state.history.add(d);
-        }
+        for (var w = 0; w < width; w++) {
+            for (var h = 0; h < height; h++) {
+                if (keepHistory) {
+                    var d = {x: x + w, y: y + h, old: {}, new: {}};
+                    var old = this.getPixel(x + w, y + h);
+                    d.old = {r: old.r, g: old.g, b: old.b, a: old.a};
+                    d.new = {r: color.r, g: color.g, b: color.b, a: color.a};
+            
+                    this.state.history.add(d);
+                }
 
-        var p = (x + y * this.width) * 4;
-        this.imgData.data[p] = color.r;
-        this.imgData.data[p + 1] = color.g;
-        this.imgData.data[p + 2] = color.b;
-        this.imgData.data[p + 3] = color.a;
+                var p = ((x + w) + (y + h) * this.width) * 4;
+                this.imgData.data[p] = color.r;
+                this.imgData.data[p + 1] = color.g;
+                this.imgData.data[p + 2] = color.b;
+                this.imgData.data[p + 3] = color.a;
+            }
+        }
 
         // preview drawing before canvas is redrawn
         this.ctx.fillStyle = `rgba(${color.r} ${color.g} ${color.b})`;
         // this.ctx.globalAlpha = color.a;
-        this.ctx.fillRect(x, y, 1, 1);
+        this.ctx.fillRect(x, y, width, height);
         return true;
     }
 
@@ -58,28 +62,28 @@ export class ImageDataWrapper {
     }
 
     // bresenham
-    setLine(x0, y0, x1, y1, color, keepHistory = true) {
+    setLine(x0, y0, x1, y1, color, width = 1, keepHistory = true) {
         var pxs = [] 
         if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
             if (x0 > x1) {
-                pxs = this.setLineLow(x1, y1, x0, y0, color, keepHistory);
+                pxs = this.setLineLow(x1, y1, x0, y0, color, width, keepHistory);
             }
             else {
-                pxs = this.setLineLow(x0, y0, x1, y1, color, keepHistory);
+                pxs = this.setLineLow(x0, y0, x1, y1, color, width, keepHistory);
             }
         }
         else {
             if (y0 > y1) {
-                pxs = this.setLineHigh(x1, y1, x0, y0, color, keepHistory);
+                pxs = this.setLineHigh(x1, y1, x0, y0, color, width, keepHistory);
             }
             else {
-                pxs = this.setLineHigh(x0, y0, x1, y1, color, keepHistory);
+                pxs = this.setLineHigh(x0, y0, x1, y1, color, width, keepHistory);
             }
         }
         return pxs;
     }
 
-    setLineLow(x0, y0, x1, y1, color, keepHistory = true){
+    setLineLow(x0, y0, x1, y1, color, width, keepHistory = true){
         var pxs = [];
         var dx = x1 - x0;
         var dy = y1 - y0;
@@ -93,7 +97,7 @@ export class ImageDataWrapper {
         var y = y0;
 
         for (var x = x0; x < x1; x++) {
-            this.setPixel(x, y, color, keepHistory);
+            this.setRect(x, y, width, width, color, keepHistory);
             pxs.push({x: x, y: y});
             if (D > 0) {
                 y += yi;
@@ -106,7 +110,7 @@ export class ImageDataWrapper {
         return pxs;
     }
 
-    setLineHigh(x0, y0, x1, y1, color, keepHistory = true){
+    setLineHigh(x0, y0, x1, y1, color, width, keepHistory = true){
         var pxs = [];
         var dx = x1 - x0;
         var dy = y1 - y0;
@@ -120,7 +124,7 @@ export class ImageDataWrapper {
         var x = x0;
 
         for (var y = y0; y < y1; y++) {
-            this.setPixel(x, y, color, keepHistory);
+            this.setRect(x, y, width, width, color, keepHistory);
             pxs.push({x: x, y: y});
             if (D > 0) {
                 x += xi;
@@ -136,14 +140,14 @@ export class ImageDataWrapper {
     revertDelta(delta) {
         for (var i = 0; i < delta.length; i++) {
             var p = delta[i];
-            this.setPixel(p.x, p.y, p.old, false);
+            this.setRect(p.x, p.y, 1, 1, p.old, false);
         }
     }
 
     applyDelta(delta) {
         for (var i = 0; i < delta.length; i++) {
             var p = delta[i];
-            this.setPixel(p.x, p.y, p.new, false);
+            this.setRect(p.x, p.y, 1, 1, p.new, false);
         }
     }
 }

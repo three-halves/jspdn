@@ -35,7 +35,7 @@ class Pencil extends Tool {
         state.history.new();
 
         this.point = { x, y };
-        state.currentLayer().idw.setPixel(x, y, state.primaryColor);
+        state.currentLayer().idw.setRect(x, y, this.width, this.width, state.primaryColor);
         // console.log(state.currentLayer);
 
     }
@@ -55,11 +55,7 @@ class Pencil extends Tool {
         // place pixel
         if (this.lastPoint !== undefined) 
         {
-            for (var dx = 0; dx < this.width; dx++) {
-                for (var dy = 0; dy < this.width; dy++) {
-                    state.currentLayer().idw.setLine(this.lastPoint.x + dx, this.lastPoint.y + dy, this.point.x + dx, this.point.y + dy, state.primaryColor);
-                }
-            }
+            state.currentLayer().idw.setLine(this.lastPoint.x, this.lastPoint.y, this.point.x, this.point.y, state.primaryColor, this.width);
         }
         this.lastPoint = { x, y };
     }

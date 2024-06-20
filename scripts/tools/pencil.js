@@ -17,7 +17,7 @@ class Pencil extends Tool {
         state.history.new();
 
         this.point = { x, y };
-        state.currentLayer().idw.setPixel(x, y, state.primaryColor);
+        state.currentLayer().idw.setRect(x, y, 1, 1, state.primaryColor);
         // console.log(state.currentLayer);
 
     }
