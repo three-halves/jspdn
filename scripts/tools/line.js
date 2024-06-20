@@ -23,7 +23,7 @@ class Line extends Tool {
     handleMouseUp(event, state, x, y) {
         this.endPoint = { x, y };
 
-        if (this.startPoint !== undefined) state.document.layerManager.getScratchLayer().idw.setLine(this.endPoint.x, this.endPoint.y, this.startPoint.x, this.startPoint.y, state.primaryColor, true);
+        if (this.startPoint !== undefined) state.document.layerManager.getScratchLayer().idw.setLine(this.endPoint.x, this.endPoint.y, this.startPoint.x, this.startPoint.y, state.primaryColor, 1, true);
 
         state.history.push();
         state.document.layerManager.applyScratchLayer();
@@ -32,10 +32,10 @@ class Line extends Tool {
 
     handleMouseMove(event, state, x, y) {
         if (state.mouseEnter <= 0) return;
-        if (this.endPoint !== undefined) state.document.draw(state.document.layerManager.getScratchLayer().idw.setLine(this.endPoint.x, this.endPoint.y, this.startPoint.x, this.startPoint.y, {r: 0, g: 0, b: 0, a: 0}, false));
+        if (this.endPoint !== undefined) state.document.draw(state.document.layerManager.getScratchLayer().idw.setLine(this.endPoint.x, this.endPoint.y, this.startPoint.x, this.startPoint.y, {r: 0, g: 0, b: 0, a: 0}, 1, false));
         this.endPoint = { x, y };
 
-        state.document.layerManager.getScratchLayer().idw.setLine(this.endPoint.x, this.endPoint.y, this.startPoint.x, this.startPoint.y, state.primaryColor, false);
+        state.document.layerManager.getScratchLayer().idw.setLine(this.endPoint.x, this.endPoint.y, this.startPoint.x, this.startPoint.y, state.primaryColor, 1, false);
     }
 }
 
