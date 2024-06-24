@@ -47,8 +47,8 @@ export class LayerManager {
         return this.scratchLayer;
     }
 
-    applyScratchLayer() {
-        this.currentLayer.mergeWith(this.scratchLayer);
+    applyScratchLayer(keepHistory = true) {
+        this.currentLayer.mergeWith(this.scratchLayer, this.keepHistory);
         this.scratchLayer = undefined;
     }
 

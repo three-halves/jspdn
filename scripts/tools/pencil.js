@@ -19,7 +19,7 @@ class Pencil extends Tool {
         this.point = { x, y };
         state.currentLayer().idw.setRect(x, y, 1, 1, state.primaryColor);
         // console.log(state.currentLayer);
-
+        this.lastPoint = { x, y };
     }
 
     handleMouseUp(event, state, x, y) {
