@@ -26,6 +26,8 @@ export class ImageDataWrapper {
 
         for (var w = 0; w < width; w++) {
             for (var h = 0; h < height; h++) {
+                if (x + w >= this.width || y + h > this.height) continue;
+                
                 if (keepHistory) {
                     var d = {x: x + w, y: y + h, old: {}, new: {}};
                     var old = this.getPixel(x + w, y + h);
