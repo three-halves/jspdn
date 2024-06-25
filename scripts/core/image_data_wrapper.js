@@ -22,11 +22,11 @@ export class ImageDataWrapper {
             p = (x + y * this.width ) * 4;
         }
 
-        if (x < 0 || y < 0 || x >= this.width || y > this.height) return false;
+        // if (x < 0 || y < 0 || x >= this.width || y > this.height) return false;
 
         for (var w = 0; w < width; w++) {
             for (var h = 0; h < height; h++) {
-                if (x + w >= this.width || y + h > this.height) continue;
+                if (x + w < 0 || y + h < 0 || x + w >= this.width || y + h > this.height) continue;
                 
                 if (keepHistory) {
                     var d = {x: x + w, y: y + h, old: {}, new: {}};

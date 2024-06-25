@@ -34,11 +34,9 @@ class Pencil extends Tool {
     handleMouseDown(event, state, x, y) {
         state.history.new();
 
-        this.point = { x, y };
-        state.currentLayer().idw.setRect(x, y, this.width, this.width, state.primaryColor);
-        // console.log(state.currentLayer);
-
-        this.lastPoint = { x, y };
+        this.point = {x: x - this.width / 2, y: y - this.width / 2};
+        state.currentLayer().idw.setRect(this.point.x, this.point.y, this.width, this.width, state.primaryColor);
+        this.lastPoint = {x: x - this.width / 2, y: y - this.width / 2};
     }
 
     handleMouseUp(event, state, x, y) {
@@ -51,18 +49,17 @@ class Pencil extends Tool {
 
     handleMouseMove(event, state, x, y) {
         if (state.mouseEnter <= 0) return;
-        this.point = { x, y };
+        this.point = {x: x - this.width / 2, y: y - this.width / 2};
 
         // place pixel
         if (this.lastPoint !== undefined) 
         {
             state.currentLayer().idw.setLine(this.lastPoint.x, this.lastPoint.y, this.point.x, this.point.y, state.primaryColor, this.width);
         }
-        this.lastPoint = { x, y };
+        this.lastPoint = {x: x - this.width / 2, y: y - this.width / 2};
     }
 
     changeWidth(e) {
-        console.log("change width: " + e.target.value);
         this.width = e.target.value;
     }
 }

@@ -58,7 +58,6 @@ class Line extends Tool {
     }
 
     changeWidth(e) {
-        console.log("change width: " + e.target.value);
         this.width = e.target.value;
     }
 }
