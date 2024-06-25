@@ -17,3 +17,5 @@ export function interpColor(ca, cb) {
 
   return newColor;
 }
+
+export var fourWayDeltas = [{x: 1, y: 0}, {x: -1, y: 0}, {x: 0, y: 1}, {x:0, y: -1}];

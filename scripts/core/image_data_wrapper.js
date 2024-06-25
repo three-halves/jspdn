@@ -14,7 +14,7 @@ export class ImageDataWrapper {
     }
 
     // returns true on success, false if fail
-    setRect(x, y = undefined, width = 1, height = 1, color, keepHistory = true) {
+    setRect(x, y = undefined, width = 1, height = 1, color, keepHistory = true, preview = true) {
         x = Math.floor(x);
         var p = x;
         if (y !== undefined) {
@@ -43,12 +43,16 @@ export class ImageDataWrapper {
                 this.imgData.data[p + 2] = color.b;
                 this.imgData.data[p + 3] = color.a;
             }
+
+        }
+        
+        // preview drawing before canvas is redrawn
+        if (preview) {
+            this.ctx.fillStyle = `rgba(${color.r} ${color.g} ${color.b})`;
+            // this.ctx.globalAlpha = color.a;
+            this.ctx.fillRect(x, y, width, height);
         }
 
-        // preview drawing before canvas is redrawn
-        this.ctx.fillStyle = `rgba(${color.r} ${color.g} ${color.b})`;
-        // this.ctx.globalAlpha = color.a;
-        this.ctx.fillRect(x, y, width, height);
         return true;
     }
 

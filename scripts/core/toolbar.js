@@ -7,7 +7,7 @@ export class Toolbar {
     constructor(state) {
         this.state = state;
 
-        this.tools = [pencil, line, brush];
+        this.tools = [pencil, line, brush, bucket];
         this.buttons = [];
 
         // toolbar button for current tool

@@ -13,6 +13,7 @@ export class Layer {
         this.opacity = opacity;
 
         this.merge = this.mergeWith.bind(this);
+        this.isValidPixel = this.isValidPixel.bind(this);
     }
 
     mergeWith(other, keepHistory = true) {
@@ -41,5 +42,9 @@ export class Layer {
         }
 
         this.state.history.push();
+    }
+
+    isValidPixel(x, y) {
+        return (!(x < 0 || y < 0 || x >= this.idw.width || y > this.idw.height));
     }
 }
