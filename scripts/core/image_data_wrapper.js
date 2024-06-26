@@ -68,28 +68,28 @@ export class ImageDataWrapper {
     }
 
     // bresenham
-    setLine(x0, y0, x1, y1, color, width = 1, keepHistory = true) {
+    setLine(x0, y0, x1, y1, color, width = 1, keepHistory = true, preview = true) {
         var pxs = [] 
         if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
             if (x0 > x1) {
-                pxs = this.setLineLow(x1, y1, x0, y0, color, width, keepHistory);
+                pxs = this.setLineLow(x1, y1, x0, y0, color, width, keepHistory, preview);
             }
             else {
-                pxs = this.setLineLow(x0, y0, x1, y1, color, width, keepHistory);
+                pxs = this.setLineLow(x0, y0, x1, y1, color, width, keepHistory, preview);
             }
         }
         else {
             if (y0 > y1) {
-                pxs = this.setLineHigh(x1, y1, x0, y0, color, width, keepHistory);
+                pxs = this.setLineHigh(x1, y1, x0, y0, color, width, keepHistory, preview);
             }
             else {
-                pxs = this.setLineHigh(x0, y0, x1, y1, color, width, keepHistory);
+                pxs = this.setLineHigh(x0, y0, x1, y1, color, width, keepHistory, preview);
             }
         }
         return pxs;
     }
 
-    setLineLow(x0, y0, x1, y1, color, width, keepHistory = true){
+    setLineLow(x0, y0, x1, y1, color, width, keepHistory = true, preview = true){
         var pxs = [];
         var dx = x1 - x0;
         var dy = y1 - y0;
@@ -103,8 +103,10 @@ export class ImageDataWrapper {
         var y = y0;
 
         for (var x = x0; x < x1; x++) {
-            this.setRect(x, y, width, width, color, keepHistory);
-            pxs.push({x: x, y: y});
+            this.setRect(x, y, width, width, color, keepHistory, preview);
+            for (var i = 0; i < width * width; i++) {
+                pxs.push({x: x + i % width, y: Math.floor(y + i / width)});
+            }
             if (D > 0) {
                 y += yi;
                 D += 2 * (dy - dx);
@@ -116,7 +118,7 @@ export class ImageDataWrapper {
         return pxs;
     }
 
-    setLineHigh(x0, y0, x1, y1, color, width, keepHistory = true){
+    setLineHigh(x0, y0, x1, y1, color, width, keepHistory = true, preview = true){
         var pxs = [];
         var dx = x1 - x0;
         var dy = y1 - y0;
@@ -130,8 +132,10 @@ export class ImageDataWrapper {
         var x = x0;
 
         for (var y = y0; y < y1; y++) {
-            this.setRect(x, y, width, width, color, keepHistory);
-            pxs.push({x: x, y: y});
+            this.setRect(x, y, width, width, color, keepHistory, preview);
+            for (var i = 0; i < width * width; i++) {
+                pxs.push({x: x + i % width, y: Math.floor(y + i / width)});
+            }
             if (D > 0) {
                 x += xi;
                 D += 2 * (dx - dy);

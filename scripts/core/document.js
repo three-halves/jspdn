@@ -57,6 +57,8 @@ export class JspdnDocument {
     }
 
     drawPx(x, y = undefined) {
+        x = Math.floor(x);
+        y = Math.floor(y);
         var p = x;
         if (y !== undefined) {
             p = (x + y * this.width) * 4; 

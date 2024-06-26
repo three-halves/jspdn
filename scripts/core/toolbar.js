@@ -2,12 +2,13 @@ import pencil from '../tools/pencil.js';
 import bucket from '../tools/bucket.js';
 import line from '../tools/line.js';
 import brush from '../tools/brush.js';
+import eraser from '../tools/eraser.js';
 
 export class Toolbar {
     constructor(state) {
         this.state = state;
 
-        this.tools = [pencil, line, brush, bucket];
+        this.tools = [pencil, eraser, line, brush, bucket];
         this.buttons = [];
 
         // toolbar button for current tool
