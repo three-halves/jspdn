@@ -20,6 +20,7 @@ export class LayerManager {
         };
         document.getElementById("remove-layer-button").onclick = () => this.removeLayer(this.currentLayer);
         document.getElementById("rename-layer-button").onclick = () => this.renameLayer(this.currentLayer);
+        document.getElementById("opacity-layer-button").onclick = () => this.changeLayerOpacity(this.currentLayer);
     }
 
     // TODO Optimize refresh calls
@@ -76,6 +77,13 @@ export class LayerManager {
     renameLayer(layer) {
         layer.name = window.prompt("Enter new layer name: ", layer.name);
         this.display.refresh();
+    }
+
+    changeLayerOpacity(layer) {
+        var o = parseFloat(window.prompt("Enter new layer opacity (0.0 - 1.0): ", layer.opacity));
+        if (isNaN(o)) return;
+        layer.opacity = Math.max(0.0, Math.min(o, 1.0));
+        this.state.document.draw();
     }
 
 
