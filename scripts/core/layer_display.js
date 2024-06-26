@@ -27,11 +27,13 @@ export class LayerDisplay {
 
         var upButton = document.createElement('button');
         upButton.innerHTML = "^";
+        upButton.classList.add("capped-left");
         upButton.onclick = () => this.manager.moveLayerOrder(layer, -1);
         display.appendChild(upButton);
 
         var downButton = document.createElement('button');
         downButton.innerHTML = "v";
+        downButton.classList.add("capped-right");
         downButton.onclick = () => this.manager.moveLayerOrder(layer, 1);
         display.appendChild(downButton);
 

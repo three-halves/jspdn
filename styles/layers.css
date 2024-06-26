@@ -11,13 +11,13 @@
 #layer-list {
     display: flex;
     flex-direction: column;
-    background-color: silver;
+    background-color: var(--layer-select-col);
     height: 250px;
     overflow-y: scroll;
 }
 
 #layer-list .selected {
-    background-color:steelblue;
+    background-color:var(--alt-accent-col);
 }
 
 /* display for an individual layer */
@@ -25,7 +25,7 @@
     width: auto;
     display: flex;
     padding: 10px;
-    background-color: gray;
+    background-color: var(--layer-select-col);
     margin-bottom: 5px;
 }
 

@@ -1,6 +1,5 @@
 #tool-options {
-    /* min-height: 50px; */
-    background-color: lightgrey;
+    background-color: var(--main-col);
     flex-basis: 100%;
     margin-inline: 9rem;
     margin-block: 0.5rem;
@@ -17,16 +16,20 @@
 
 #tool-options .slider {
     appearance: none;
-    background-color: grey;
+    background-color: var(--alt-col);
     height: 10px;
     border-radius: 25px;
 }
 
 #tool-options .slider::-webkit-slider-thumb {
     appearance: none;
-    background-color: steelblue;
+    background-color: var(--alt-accent-col);
     width: 25px;
     height: 25px;
     border-radius: 100%;
     cursor: pointer;
+}
+
+#tool-options .slider::-webkit-slider-thumb:active {
+    background-color: var(--selected-col);
 }

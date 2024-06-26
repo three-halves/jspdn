@@ -1,13 +1,15 @@
 #toolbar {
     display: grid;
     width: 100%;
-    /* background-color: red; */
     gap: 10px 5px;
     grid-template-columns: auto;
     margin-top: 10px;
 }
 
 #toolbar .selected {
-    /* outline: 2px solid gray; */
-    background-color:lightblue;
+    background-color: var(--accent-col);
+}
+
+#toolbar .selected:hover {
+    background-color: var(--accent-col);
 }

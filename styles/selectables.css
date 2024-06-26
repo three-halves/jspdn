@@ -1,0 +1,27 @@
+button {
+    border-radius: 3px;
+    border: 2px solid var(--alt-col);
+    padding: 3px;
+    background-color: var(--selectable-col);
+    min-width: 1.5rem;
+}
+
+button:hover {
+    background-color: var(--selectable-highlight-col);
+}
+
+button:active {
+    background-color: var(--alt-col);
+}
+
+.capped-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid var(--alt-col);
+}
+
+.capped-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid var(--alt-col);
+}

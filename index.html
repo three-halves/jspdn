@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="styles/toolbar.css">
     <link rel="stylesheet" href="styles/layers.css">
     <link rel="stylesheet" href="styles/tool-options.css">
-
+    <link rel="stylesheet" href="styles/selectables.css">
+    
     <script src="scripts/jspdn.js" type="module"></script> 
 </head>
 <body>
     <div class="ribbon">
         <p class="version">jspdn v0.0.0</p>
-        <button id="undo">undo (z)</button>
-        <button id="redo">redo (x)</button>
+        <button id="undo" class="capped-left">undo (z)</button>
+        <button id="redo" class="capped-right">redo (x)</button>
     </div>
 
     <div class="container">
@@ -34,8 +35,8 @@
                 <p>layers</p>
                 <div id="layer-list"></div>
                 <div class="layer-tools">
-                    <button id="add-layer-button">+</button>
-                    <button id="remove-layer-button">-</button>
+                    <button id="add-layer-button" class="capped-left">+</button>
+                    <button id="remove-layer-button" class="capped-right">-</button>
                     <!-- <button id="config-layer-button">c</button> -->
                 </div>
             </div>
