@@ -19,6 +19,7 @@ export class LayerManager {
             this.selectLayer(this.layers[this.layers.length - 1]);
         };
         document.getElementById("remove-layer-button").onclick = () => this.removeLayer(this.currentLayer);
+        document.getElementById("rename-layer-button").onclick = () => this.renameLayer(this.currentLayer);
     }
 
     // TODO Optimize refresh calls
@@ -70,6 +71,11 @@ export class LayerManager {
 
         this.display.refresh();
         this.state.document.draw();
+    }
+
+    renameLayer(layer) {
+        layer.name = window.prompt("Enter new layer name: ", layer.name);
+        this.display.refresh();
     }
 
 
