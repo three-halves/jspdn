@@ -12,6 +12,7 @@ export class LayerManager {
         this.display = new LayerDisplay(this);
 
         this.layerCount = 1;
+        this.maxLayers = 10;
 
         document.getElementById("add-layer-button").onclick = () => { 
             this.addLayer()
@@ -22,7 +23,7 @@ export class LayerManager {
 
     // TODO Optimize refresh calls
     addLayer(name = '') {
-        if (this.layerCount > 10) return;
+        if (this.layerCount > this.maxLayers) return;
         
         if (name === '') name = 'layer ' + this.layerCount;
         var l = new Layer(this.state, name);

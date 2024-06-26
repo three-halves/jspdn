@@ -25,7 +25,7 @@ function init() {
         handleMouseMove(canvas, e);
     })
 
-    document.getElementById("primaryColor").addEventListener('blur', function(e) {
+    document.getElementById("primaryColor").addEventListener('input', function(e) {
         setColor(this.value);
     });
 
