@@ -2,7 +2,7 @@ import { interpColor } from "../utils.js";
 import { ImageDataWrapper } from "./image_data_wrapper.js";
 
 export class Layer {
-    constructor(state, name, hidden=false, opacity = 1.0) {
+    constructor(state, name, hidden=false, alpha = 1.0) {
         this.state = state;
         this.idw = new ImageDataWrapper(this.state);
         this.name = name;
@@ -10,7 +10,7 @@ export class Layer {
         this.hidden = hidden;
         // content of layer hidden
         this.disabled = false;
-        this.opacity = opacity;
+        this.alpha = alpha;
 
         this.merge = this.mergeWith.bind(this);
         this.isValidPixel = this.isValidPixel.bind(this);

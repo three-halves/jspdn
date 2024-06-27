@@ -10,10 +10,11 @@ export function hexToRgb(hex) {
 export function interpColor(ca, cb) {
   var newColor = {r: 0, g: 0, b: 0, a: 0};
 
-  newColor.r = ca.r + cb.r * (1 - ca.a / 255);
-  newColor.g = ca.g + cb.g * (1 - ca.a / 255);
-  newColor.b = ca.b + cb.b * (1 - ca.a / 255);
-  newColor.a = ca.a + cb.a * (1 - ca.a / 255);
+  var a = ca.a / 255.0;
+  newColor.r = (ca.r * a + cb.r * (1 - a));
+  newColor.g = (ca.g * a + cb.g * (1 - a));
+  newColor.b = (ca.b * a + cb.b * (1 - a));
+  newColor.a = (ca.a * a + cb.a * (1 - a));
 
   return newColor;
 }

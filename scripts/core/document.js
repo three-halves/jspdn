@@ -31,9 +31,10 @@ export class JspdnDocument {
 
         layers.forEach((layer) => {
             var curColor = layer.idw.getPixel(p);
-            curColor.a *= layer.opacity;
+            curColor.a *= layer.alpha;
 
             if (curColor.a !== 0) comColor = interpColor(curColor, comColor);
+
         });
 
         return comColor;
