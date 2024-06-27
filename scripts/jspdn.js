@@ -42,6 +42,13 @@ function init() {
         switch((e.key).toLowerCase()) {
             case 'z': undo(state); break;
             case 'x': redo(state); break;
+
+            case 'a': state.toolbar.buttons[0].onclick(); break;
+            case 's': state.toolbar.buttons[1].onclick(); break;
+            case 'd': state.toolbar.buttons[2].onclick(); break;
+            case 'f': state.toolbar.buttons[3].onclick(); break;
+            case 'g': state.toolbar.buttons[4].onclick(); break;
+
         }
     });
 
