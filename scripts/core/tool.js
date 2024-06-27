@@ -8,7 +8,7 @@ class Tool {
     select() {
         document.getElementById("tool-options").innerHTML = '';
         this.initTool();
-        console.log("selected " + this.name);
+        // console.log("selected " + this.name);
     }
 
     initTool() {

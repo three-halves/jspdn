@@ -16,7 +16,6 @@ export class Toolbar {
 
         // init toolbar
         this.container = document.getElementById("toolbar");
-        console.log("container: ", this.container);
 
         // setup button for each tool
         this.tools.forEach((tool) => {        

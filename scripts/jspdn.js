@@ -11,7 +11,6 @@ function init() {
     console.log(document.getElementById('canvas'))
     ctx = canvas.getContext('2d');
     state = new State(ctx);
-    console.log(state.idw);
 
     document.addEventListener('mousedown', function(e) {
         handleMouseDown(canvas, e);
